@@ -41,7 +41,7 @@ We're testing the following physical machines:
 | Name | OS | Role | CPU | RAM | NIC | Notes |
 | ---- | --- | ---- | --- | --- | --- | ----- |
 | CNONIM | Windows 10 | Desktop | [Core i7-6700K = 4 core @ 4.2 ghz](https://ark.intel.com/products/88195/Intel-Core-i7-6700K-Processor-8M-Cache-up-to-4_20-GHz) | 64 GB | 1 Gbit | |
-| SEXTOD | Windows 7 | Desktop | [Core i7-3930K = 4 core @ 3.2 ghz](https://ark.intel.com/products/63697/Intel-Core-i7-3930K-Processor-12M-Cache-up-to-3_80-GHz)| 64 GB | 1 Gbit | |
+| SEXTOD | Windows 7 | Desktop | [Core i7-3930K = 6 core @ 3.2 ghz](https://ark.intel.com/products/63697/Intel-Core-i7-3930K-Processor-12M-Cache-up-to-3_80-GHz)| 64 GB | 1 Gbit | |
 
 ## Load Generation
 We generate load with Apache Bench (**AB**) for now, using `-k` for keep alives, `-nXXXX` number of requests, `-cXXXXX` concurrency level
