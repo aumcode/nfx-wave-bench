@@ -1,0 +1,10 @@
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.db
+
+Output/
+.vs/
+obj/
+packages/

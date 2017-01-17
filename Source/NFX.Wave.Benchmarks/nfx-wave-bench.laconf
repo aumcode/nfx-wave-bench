@@ -1,0 +1,33 @@
+﻿nfx
+{
+  wave
+  {
+    server
+    {
+      prefix { name="http://+:8080/" }
+
+      dispatcher
+      {
+        filter
+        {
+          name="Errors" order=0 type="NFX.Wave.Filters.ErrorFilter, NFX.Wave"
+          show-dump { match { name=all is-local=true } }
+        }
+
+        handler
+        {
+          name="MVC" order=0 type="NFX.Wave.Handlers.MVCHandler, NFX.Wave"
+
+          type-location { name="local" assembly="nfx-wave-bench.exe" ns{ name="NFX.Wave.Benchmarks.Controllers"} }
+
+          match
+          {
+            path="{mvc-action}"
+            var { query-name=* }
+            var { name=type default=Index }
+          }
+        }
+      }
+    }
+  }
+}
