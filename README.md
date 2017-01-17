@@ -8,7 +8,7 @@ At the present moment we have based the [WaveServer](https://github.com/aumcode/
 
 ## Scenarios
 
-We have tested two kinds of request handling:  [**direct handler**](/Handlers) that writes to the stream, and [**MVC Controller**](/Controllers) which is of course slower as it is an extra layer that dispatches request/verbs into a class method invocation.
+We have tested two kinds of request handling:  [**direct handler**](./Source/NFX.Wave.Benchmarks/Handlers) that writes to the stream, and [**MVC Controller**](./Source/NFX.Wave.Benchmarks/Controllers) which is of course slower as it is an extra layer that dispatches request/verbs into a class method invocation.
 
 | url | Type | MVC Action | Description |
 | --- | ---- | ------ | ----------- |
