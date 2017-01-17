@@ -28,9 +28,10 @@ Output\Release\nfx-wave-bench
 ## Environment
 We're testing the following physical machines:
 
+
 | Name | OS | Role | CPU | RAM | NIC | Notes |
-| ---- | -- | ---- | --- | --- | --- | ----- |
-| local | Windows 10 | Desktop | [Core i7-6700K](https://ark.intel.com/products/88195/Intel-Core-i7-6700K-Processor-8M-Cache-up-to-4_20-GHz) | 64 GB | local |
+| ---- | --- | ---- | --- | --- | --- | ----- |
+| local | Windows 10 | Desktop | [Core i7-6700K](https://ark.intel.com/products/88195/Intel-Core-i7-6700K-Processor-8M-Cache-up-to-4_20-GHz) | 64 GB | local | |
 
 ## Load Generation
 ```
