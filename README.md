@@ -23,6 +23,8 @@ We have tested two kinds of request handling:  [**direct handler**](./Source/NFX
 
 1. Build solution in Release
 
+1. Either run as Admin or grant HttpListener rights like so: `netsh http add urlacl url=http://+:8080/ user=Everyone`
+
 1. Run
 ```
 Output\Release\nfx-wave-bench
@@ -32,43 +34,46 @@ Output\Release\nfx-wave-bench
 
 # Details
 
-## Environment
+## Our Test Environment
 We're testing the following physical machines:
 
 
 | Name | OS | Role | CPU | RAM | NIC | Notes |
 | ---- | --- | ---- | --- | --- | --- | ----- |
-| local | Windows 10 | Desktop | [Core i7-6700K](https://ark.intel.com/products/88195/Intel-Core-i7-6700K-Processor-8M-Cache-up-to-4_20-GHz) | 64 GB | local | |
+| CNONIM | Windows 10 | Desktop | [Core i7-6700K](https://ark.intel.com/products/88195/Intel-Core-i7-6700K-Processor-8M-Cache-up-to-4_20-GHz) | 64 GB | local | |
+| SEXTOD | Windows 7 | Desktop | Core i7 6core | 64 GB | 1 Gb | |
 
 ## Load Generation
+We generate load with Apache Bench (**AB**) for now, using `-k` for keep alives, `-nXXXX` number of requests, `-cXXXXX` concurrency level
+
 ```
 ab -n200000 -c8 -k ...
 ```
 
 ## Plaintext
 
-| Stack | Server | Req/sec |
-| ----- | ------ | ------- |
-| NFX.Wave | local | 102,320 |
-| ASP.Net Core on Kestrel | local | 138,789 |
+| Stack | Server | Client | Req/sec |
+| ----- | ------ | ------- | ------- |
+| NFX.Wave | CNONIM | AB local |  102,320 |
+| ASP.Net Core on Kestrel | CNONIM |  AB local | 138,789 |
 
 ## Json
 
-| Stack | Server | Req/sec |
-| ----- | ------ | ------- |
-| NFX.Wave | local | 93,647 |
-| ASP.Net Core on Kestrel | local | 135,224 |
+| Stack | Server | Client | Req/sec |
+| ----- | ------ | ------- | ------- |
+| NFX.Wave | CNONIM |  AB local | 93,647 |
+| ASP.Net Core on Kestrel | CNONIM |  AB local| 135,224 |
 
 ## MVC PlainText
 
-| Stack | Server | Req/sec |
-| ----- | ------ | ------- |
-| NFX.Wave | local | 83,480 |
-| ASP.Net Core on Kestrel | local | 106,297 |
+| Stack | Server | Client | Req/sec |
+| ----- | ------ | ------- | ------- |
+| NFX.Wave | CNONIM |  AB local | 83,480 |
+| ASP.Net Core on Kestrel | CNONIM |  AB local| 106,297 |
 
 ## MVC Json
 
-| Stack | Server | Req/sec |
-| ----- | ------ | ------- |
-| NFX.Wave | local | 75,608 |
-| ASP.Net Core on Kestrel | local | 6,349 |
+| Stack | Server |Client | Req/sec |
+| ----- | ------ | ------- | ------- |
+| NFX.Wave | CNONIM |  AB local | 75,608 |
+| ASP.Net Core on Kestrel | CNONIM |  AB local | 6,349 |
