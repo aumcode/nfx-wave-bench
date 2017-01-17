@@ -4,6 +4,9 @@
   {
     server
     {
+      parallel-works=2048
+      parallel-accepts=1024
+
       prefix { name="http://+:8080/" }
 
       dispatcher
@@ -16,13 +19,35 @@
 
         handler
         {
+          name="PlainText" order=0 type="NFX.Wave.Benchmarks.Handlers.PlainTextHandler, nfx-wave-bench"
+
+          match
+          {
+            path="plaintext"
+            var { query-name=* }
+          }
+        }
+
+        handler
+        {
+          name="Json" order=0 type="NFX.Wave.Benchmarks.Handlers.JsonHandler, nfx-wave-bench"
+
+          match
+          {
+            path="json"
+            var { query-name=* }
+          }
+        }
+
+        handler
+        {
           name="MVC" order=0 type="NFX.Wave.Handlers.MVCHandler, NFX.Wave"
 
           type-location { name="local" assembly="nfx-wave-bench.exe" ns{ name="NFX.Wave.Benchmarks.Controllers"} }
 
           match
           {
-            path="{mvc-action}"
+            path="mvc/{mvc-action}"
             var { query-name=* }
             var { name=type default=Index }
           }
