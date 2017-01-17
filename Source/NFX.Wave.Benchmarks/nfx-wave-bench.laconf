@@ -30,7 +30,7 @@
 
         handler
         {
-          name="Json" order=0 type="NFX.Wave.Benchmarks.Handlers.JsonHandler, nfx-wave-bench"
+          name="Json" order=1 type="NFX.Wave.Benchmarks.Handlers.JsonHandler, nfx-wave-bench"
 
           match
           {
@@ -41,7 +41,7 @@
 
         handler
         {
-          name="MVC" order=0 type="NFX.Wave.Handlers.MVCHandler, NFX.Wave"
+          name="MVC" order=10 type="NFX.Wave.Handlers.MVCHandler, NFX.Wave"
 
           type-location { name="local" assembly="nfx-wave-bench.exe" ns{ name="NFX.Wave.Benchmarks.Controllers"} }
 
