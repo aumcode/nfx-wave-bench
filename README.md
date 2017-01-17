@@ -1,27 +1,27 @@
 # NFX Wave Benchmarks
-The purpose of this project is to realistically assess the proformance of our web stack and compare it to the top tech offerings. This work was sparked by a post about  [Kestrel achieving +1MM requests a second](https://www.ageofascent.com/2016/02/18/asp-net-core-exeeds-1-15-million-requests-12-6-gbps/) on .Net Core. Indeed, the MS team has performed some tight optimizations and achieved very good results, however the question stands: **how is this applicable to the real web apps laden with business logic? Is this even needed? Does it justify the complexity?**. *When you need to carry a 1000lb rock, does it matter if your bag weights 1 lb or 10 lb?*
+The purpose of this project is to realistically assess the performance of our web stack and compare it to the top tech offerings on the market. This work was sparked by a post about  [Kestrel achieving +1MM requests a second](https://www.ageofascent.com/2016/02/18/asp-net-core-exeeds-1-15-million-requests-12-6-gbps/) on .Net Core. Indeed, the MS team has implemented some tight optimizations and achieved very good results, however the question stands: **how is this applicable to the real web apps laden with business logic? Is this even needed? Does it justify the complexity?**. *When you need to carry a 1000lb rock, does it matter if your bag weights 1 lb or 10 lb?*
 
 NFX Wave is a web-centric part of [NFX UNISTACK](https://github.com/aumcode/nfx) library. WAVE provides: web server, request handling pipeline (filters/handlers), and [MVCHandler](https://github.com/aumcode/nfx/blob/master/Source/NFX.Wave/Handlers/MVCHandler.cs) that operate on top.
 
 At the present moment we have based the [WaveServer](https://github.com/aumcode/nfx/blob/master/Source/NFX.Wave/WaveServer.cs) implementation on the classic [HttpListener](https://msdn.microsoft.com/en-us/library/system.net.httplistener(v=vs.110).aspx) class. We really do not depend on HttpListener and plan to get rid of it altogether in favor of libuv or plain sockets.
 
 
-## Scenarios
+## Testing Scenarios
 
-We have tested two kinds of request handling:  [**direct handler**](./Source/NFX.Wave.Benchmarks/Handlers) that writes to the stream, and [**MVC Controller**](./Source/NFX.Wave.Benchmarks/Controllers) which is of course slower as it is an extra layer that dispatches request/verbs into a class method invocation.
+We have tested two kinds of request handling:  [**direct handler**](./Source/NFX.Wave.Benchmarks/Handlers) that writes to the stream, and [**MVC Controller**](./Source/NFX.Wave.Benchmarks/Controllers) which is of course slower than plain handler as it is an extra layer that dispatches request/verbs into a class method invocation.
 
 | url | Type | MVC Action | Description |
 | --- | ---- | ------ | ----------- |
-| /plaintext | NFX.Wave.Benchmarks.Handlers.PlainTextHandler | n/a |Return Plain Text with direct writing |
-| /json | NFX.Wave.Benchmarks.Handlers.JsonHandler | n/a |Return simple JSON with direct writing |
-| /mvc/plaintext | NFX.Wave.Handlers.MVCHandler | Index.PlainText |Return Plain Text using MVC handler |
-| /mvc/json | NFX.Wave.Handlers.MVCHandler | Index.Json |Return simple JSON using MVC handler |
+| /plaintext | NFX.Wave.Benchmarks.Handlers.PlainTextHandler | n/a |Plain Text with direct response writing |
+| /json | NFX.Wave.Benchmarks.Handlers.JsonHandler | n/a |Simple JSON with direct response writing |
+| /mvc/plaintext | NFX.Wave.Handlers.MVCHandler | Index.PlainText |Return Plain Text via MVC controller action |
+| /mvc/json | NFX.Wave.Handlers.MVCHandler | Index.Json |Return simple JSON via MVC controller action |
 
 ## Setting Up
 
 1. Clone this repo
 
-1. Build solution in Release
+1. Build VS solution in Release. This is a regular .NET project, not a Core project
 
 1. Either run as Admin or grant HttpListener rights like so: `netsh http add urlacl url=http://+:8080/ user=Everyone`
 
@@ -30,12 +30,12 @@ We have tested two kinds of request handling:  [**direct handler**](./Source/NFX
 Output\Release\nfx-wave-bench
 ```
 
-*Note: You may need to open port 8080 for external traffic in your firewall to successfully run*
+*Note: You may need to open port 8080 for external traffic to access the server rig*
 
 # Details
 
 ## Our Test Environment
-We're testing the following physical machines:
+We are testing using the following physical machines:
 
 
 | Name | OS | Role | CPU | RAM | NIC | Notes |
